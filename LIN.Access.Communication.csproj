@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.10" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Tipos\LIN.Modules\LIN.Modules.csproj" />
+    <ProjectReference Include="..\..\Tipos\LIN.Types.Auth\LIN.Types.Auth.csproj" />
+    <ProjectReference Include="..\..\Tipos\LIN.Types.Communication\LIN.Types.Communication.csproj" />
+    <ProjectReference Include="..\..\Tipos\LIN.Types\LIN.Types.csproj" />
+  </ItemGroup>
+
+</Project>
