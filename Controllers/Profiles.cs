@@ -5,7 +5,12 @@ public static class Profiles
 {
 
 
-
+    /// <summary>
+    /// Iniciar sesión
+    /// </summary>
+    /// <param name="cuenta">Cuenta</param>
+    /// <param name="password">Contraseña</param>
+    /// <param name="app">App de contexto</param>
     public async static Task<ReadOneResponse<Types.Auth.Abstracts.AuthModel<ProfileModel>>> Login(string cuenta, string password, string app)
     {
 
@@ -54,6 +59,10 @@ public static class Profiles
 
 
 
+    /// <summary>
+    /// Login
+    /// </summary>
+    /// <param name="token">Token de acceso</param>
     public async static Task<ReadOneResponse<Types.Auth.Abstracts.AuthModel<ProfileModel>>> Login(string token)
     {
 
@@ -96,14 +105,6 @@ public static class Profiles
 
 
     }
-
-
-
-
-
-
-
-
 
 
 

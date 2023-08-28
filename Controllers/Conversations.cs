@@ -5,12 +5,11 @@ public static class Conversations
 {
 
 
-
-
-
-
-
-    public async static Task<ReadAllResponse<MemberChatModel>> ReadConver(string token)
+    /// <summary>
+    /// Obtiene las conversaciones asociadas a un perfil
+    /// </summary>
+    /// <param name="token">Token de acceso</param>
+    public async static Task<ReadAllResponse<MemberChatModel>> ReadAll(string token)
     {
 
         // Crear HttpClient
@@ -20,8 +19,6 @@ public static class Conversations
 
         // ApiServer de la solicitud GET
         string url = ApiServer.PathURL("conversations/read/all");
-
-
 
         try
         {
@@ -50,8 +47,6 @@ public static class Conversations
 
 
     }
-
-
 
 
 }

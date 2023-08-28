@@ -5,16 +5,18 @@ public static class Messages
 {
 
 
-    public async static Task<ReadAllResponse<MessageModel>> ReadMessage(int cv)
+    /// <summary>
+    /// Obtiene los mensajes asociados a una conversación
+    /// </summary>
+    /// <param name="idConversation">ID de la conversación</param>
+    public async static Task<ReadAllResponse<MessageModel>> ReadAll(int idConversation)
     {
 
         // Crear HttpClient
         using var httpClient = new HttpClient();
 
-        httpClient.DefaultRequestHeaders.Add("conversacion", cv.ToString());
-
         // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL("conversations/read/messages");
+        string url = ApiServer.PathURL($"conversations/{idConversation}/messages");
 
 
 
@@ -45,13 +47,6 @@ public static class Messages
 
 
     }
-
-
-
-
-
-
-
 
 
 }
