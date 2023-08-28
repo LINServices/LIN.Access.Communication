@@ -58,7 +58,7 @@ public sealed class Session
         CloseSession();
 
         // Validación de user
-        var response = await Controllers.Profile.Login(user, password, "Q222Q");
+        var response = await Controllers.Profiles.Login(user, password, "Q222Q");
 
 
         if (response.Response != Responses.Success)
@@ -87,7 +87,7 @@ public sealed class Session
         CloseSession();
 
         // Validación de user
-        var response = await Controllers.Profile.Login(token);
+        var response = await Controllers.Profiles.Login(token);
 
 
         if (response.Response != Responses.Success)
