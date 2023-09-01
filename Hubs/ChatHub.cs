@@ -100,22 +100,6 @@ public sealed class ChatHub
 
 
 
-    public async void SuscribeToMe(string group, Action<MessageModel> action)
-    {
-
-        // Comprueba la conexión
-        if (HubConnection?.State != HubConnectionState.Connected)
-            return;
-
-        // Ejecución
-        try { 
-            HubConnection.On($"sendMessage-{group}", action);
-        }
-        catch
-        {
-        }
-    }
-
 
 
     public async void SendMessage(int me, string group, string message)
