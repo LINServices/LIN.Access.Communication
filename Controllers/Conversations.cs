@@ -74,7 +74,7 @@ public static class Conversations
             // Leer la respuesta como una cadena
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<ReadAllResponse<MessageModel>>(responseBody);
+            var obj = JsonConvert.DeserializeObject<ReadAllResponse<MemberChatModel>>(responseBody);
 
             return obj ?? new();
 
