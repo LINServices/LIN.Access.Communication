@@ -4,9 +4,11 @@
 public sealed class ChatHub
 {
 
+    /// <summary>
+    /// Perfil conectado
+    /// </summary>
+    private ProfileModel Profile { get; set; }
 
-
-    //======== Propiedades ========//
 
 
     /// <summary>
@@ -17,18 +19,28 @@ public sealed class ChatHub
 
 
     /// <summary>
-    /// Obtiene el ID de usuario asignado este dispositivo
+    /// Recibe un mensaje
     /// </summary>
-    public string ID
+    public event EventHandler<MessageModel>? OnReceiveMessage;
+
+
+
+    /// <summary>
+    /// Obtiene el ID asociado al Hub
+    /// </summary>
+    public string ID => HubConnection?.ConnectionId ?? string.Empty;
+
+
+
+
+    /// <summary>
+    /// Nueva conexión en tiempo real para chat
+    /// </summary>
+    /// <param name="profile">Perfil</param>
+    public ChatHub(ProfileModel profile)
     {
-        get
-        {
-            return HubConnection?.ConnectionId ?? string.Empty;
-        }
+        this.Profile = profile;
     }
-
-
-
 
 
 
@@ -49,6 +61,9 @@ public sealed class ChatHub
             // Inicia la conexión
             await HubConnection.StartAsync();
 
+            // Configuración de la conexión
+            await Configurate();
+
         }
         catch
         { }
@@ -57,30 +72,27 @@ public sealed class ChatHub
 
 
 
-
     /// <summary>
-    /// Envía un comando
+    /// Configuración de la conexión
     /// </summary>
-    public async Task ConnectMe(ProfileModel profile)
+    private async Task Configurate()
     {
-
-
-        // Comprueba la conexion
+        // Comprueba la conexión
         if (HubConnection?.State != HubConnectionState.Connected)
             return;
 
-        // Ejecucion
-        try
-        {
-            await HubConnection!.InvokeAsync("load", profile);
-        }
-        catch
-        {
-        }
+        // Cache del perfil
+        await HubConnection.InvokeAsync("load", Profile);
+
     }
 
 
-    public async void JoinGroup(string group, Action<MessageModel> action)
+
+    /// <summary>
+    /// Une a una conversación
+    /// </summary>
+    /// <param name="group">ID de la conversación</param>
+    public async Task JoinGroup(int group)
     {
 
         // Comprueba la conexión
@@ -91,7 +103,6 @@ public sealed class ChatHub
         try
         {
             await HubConnection!.InvokeAsync("JoinGroup", group);
-            HubConnection.On($"sendMessage-{group}", action);
         }
         catch
         {
@@ -100,22 +111,27 @@ public sealed class ChatHub
 
 
 
-
-
-    public async void SendMessage(int me, string group, string message)
+    /// <summary>
+    /// Enviar mensaje
+    /// </summary>
+    /// <param name="group">ID de la conversación</param>
+    /// <param name="message">Mensaje</param>
+    public async Task<bool> SendMessage(int group, string message)
     {
-        // Comprueba la conexion
+        // Comprueba la conexión
         if (HubConnection?.State != HubConnectionState.Connected)
-            return;
+            return false;
 
-        // Ejecucion
+        // Ejecución
         try
         {
-            await HubConnection!.InvokeAsync("SendMessage", me, group, message);
+            await HubConnection!.InvokeAsync("SendMessage", Profile.ID, group, message);
+            return true;
         }
         catch
         {
         }
+        return false;
     }
 
 
