@@ -84,6 +84,9 @@ public sealed class ChatHub
         // Cache del perfil
         await HubConnection.InvokeAsync("load", Profile);
 
+        // Evento de mensajes
+        HubConnection.On<MessageModel>("sendMessage", (e) => OnReceiveMessage?.Invoke(this, e));
+
     }
 
 
