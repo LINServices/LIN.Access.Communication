@@ -9,13 +9,14 @@ public static class Messages
     /// Obtiene los mensajes asociados a una conversación
     /// </summary>
     /// <param name="idConversation">ID de la conversación</param>
-    public async static Task<ReadAllResponse<MessageModel>> ReadAll(int idConversation, int lastId = 0)
+    public async static Task<ReadAllResponse<MessageModel>> ReadAll(int idConversation, int lastId = 0, string token = "")
     {
 
         // Crear HttpClient
         using var httpClient = new HttpClient();
 
         httpClient.DefaultRequestHeaders.Add("lastID", lastId.ToString());
+        httpClient.DefaultRequestHeaders.Add("token", token);
 
         // ApiServer de la solicitud GET
         string url = ApiServer.PathURL($"conversations/{idConversation}/messages");
