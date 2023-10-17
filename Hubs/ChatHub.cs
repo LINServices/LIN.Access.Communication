@@ -21,7 +21,7 @@ public sealed class ChatHub
     /// <summary>
     /// Recibe un mensaje
     /// </summary>
-    public event EventHandler<MessageModel>? OnReceiveMessage;
+    public List<Action<MessageModel>> OnReceiveMessage = new();
 
 
 
@@ -85,7 +85,11 @@ public sealed class ChatHub
         await HubConnection.InvokeAsync("load", Profile);
 
         // Evento de mensajes
-        HubConnection.On<MessageModel>("sendMessage", (e) => OnReceiveMessage?.Invoke(this, e));
+        HubConnection.On<MessageModel>("sendMessage", (e) =>
+        {
+            foreach (var a in OnReceiveMessage)
+                a.Invoke(e);
+        });
 
     }
 

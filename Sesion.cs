@@ -26,7 +26,7 @@ public sealed class Session
     /// <summary>
     /// Información del usuario
     /// </summary>
-    public LIN.Types.Auth.Models.AccountModel Account { get; private set; } = new();
+    public AccountModel Account { get; private set; } = new();
 
 
     public string AccountToken { get; set; }
@@ -58,7 +58,7 @@ public sealed class Session
         CloseSession();
 
         // Validación de user
-        var response = await Controllers.Profiles.Login(user, password, "Q222Q");
+        var response = await Controllers.Profiles.Login(user, password, "Q333Q");
 
 
         if (response.Response != Responses.Success)
