@@ -70,7 +70,7 @@ public sealed class Session
         Instance.Account = response.Model.Account;
 
         Instance.Token = response.Token;
-        Instance.AccountToken = response.Model.LINAuthToken;
+        Instance.AccountToken = response.Model.TokenCollection["identity"];
 
         return (Instance, Responses.Success);
 
@@ -99,7 +99,7 @@ public sealed class Session
         Instance.Account = response.Model.Account;
 
         Instance.Token = response.Token;
-        Instance.AccountToken = response.Model.LINAuthToken;
+        Instance.AccountToken = response.Model.TokenCollection["identity"];
 
         return (Instance, Responses.Success);
 
