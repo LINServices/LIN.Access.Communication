@@ -123,7 +123,7 @@ public sealed class ChatHub
     /// </summary>
     /// <param name="group">ID de la conversación</param>
     /// <param name="message">Mensaje</param>
-    public async Task<bool> SendMessage(int group, string message)
+    public async Task<bool> SendMessage(int group, string message, string guid)
     {
         // Comprueba la conexión
         if (HubConnection?.State != HubConnectionState.Connected)
@@ -132,7 +132,7 @@ public sealed class ChatHub
         // Ejecución
         try
         {
-            await HubConnection!.InvokeAsync("SendMessage", Profile.ID, group, message);
+            await HubConnection!.InvokeAsync("SendMessage", Profile.ID, group, message, guid);
             return true;
         }
         catch
