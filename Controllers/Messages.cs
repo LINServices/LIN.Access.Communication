@@ -8,9 +8,11 @@ public static class Messages
 
 
     /// <summary>
-    /// Obtiene los mensajes asociados a una conversación
+    /// Obtiene los mensajes asociados a una conversación.
     /// </summary>
-    /// <param name="idConversation">ID de la conversación</param>
+    /// <param name="idConversation">ID de la conversación.</param>
+    /// <param name="lastId">ID del ultimo mensaje a buscar.</param>
+    /// <param name="token">Token de acceso.</param>
     public async static Task<ReadAllResponse<MessageModel>> ReadAll(int idConversation, int lastId = 0, string token = "")
     {
 
@@ -53,11 +55,11 @@ public static class Messages
 
 
 
-
     /// <summary>
-    /// Obtiene las conversaciones asociadas a un perfil
+    /// Preguntar a Emma.
     /// </summary>
-    /// <param name="token">Token de acceso</param>
+    /// <param name="token">Preguntar a Emma.</param>
+    /// <param name="token">Token de acceso.</param>
     public async static Task<ReadOneResponse<ResponseIAModel>> ToEmma(string modelo, string token)
     {
 

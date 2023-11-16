@@ -5,22 +5,31 @@ public sealed class Session
 {
 
 
-    public string Token { get; set; }
-
-
     /// <summary>
-    /// Información del usuario
+    /// Token de acceso.
     /// </summary>
-    public ProfileModel Informacion { get; private set; } = new();
+    public string Token { get; private set; }
+
 
 
     /// <summary>
-    /// Información del usuario
+    /// Token de Identity.
+    /// </summary>
+    public string AccountToken { get; set; }
+
+
+
+    /// <summary>
+    /// Información del perfil.
+    /// </summary>
+    public ProfileModel Profile { get; private set; } = new();
+
+
+
+    /// <summary>
+    /// Información de la cuenta.
     /// </summary>
     public AccountModel Account { get; private set; } = new();
-
-
-    public string AccountToken { get; set; }
 
 
 
@@ -34,7 +43,7 @@ public sealed class Session
     /// <summary>
     /// Si la sesión es activa
     /// </summary>
-    public static bool IsOpen { get => Instance.Informacion.ID > 0; }
+    public static bool IsOpen { get => Instance.Profile.ID > 0; }
 
 
 
@@ -57,7 +66,7 @@ public sealed class Session
 
 
         // Datos de la instancia
-        Instance.Informacion = response.Model.Profile;
+        Instance.Profile = response.Model.Profile;
         Instance.Account = response.Model.Account;
 
         Instance.Token = response.Token;
@@ -66,6 +75,7 @@ public sealed class Session
         return (Instance, Responses.Success);
 
     }
+
 
 
     /// <summary>
@@ -86,7 +96,7 @@ public sealed class Session
 
 
         // Datos de la instancia
-        Instance.Informacion = response.Model.Profile;
+        Instance.Profile = response.Model.Profile;
         Instance.Account = response.Model.Account;
 
         Instance.Token = response.Token;
@@ -104,7 +114,7 @@ public sealed class Session
     /// </summary>
     public static void CloseSession()
     {
-        Instance.Informacion = new();
+        Instance.Profile = new();
         Instance.Account = new();
     }
 
@@ -120,7 +130,9 @@ public sealed class Session
 
     private Session()
     {
-        Informacion = new();
+        Token = string.Empty;
+        AccountToken = string.Empty;
+        Profile = new();
     }
 
 

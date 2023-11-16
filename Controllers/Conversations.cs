@@ -6,7 +6,7 @@ public static class Conversations
 
 
     /// <summary>
-    /// Crear nueva conversación.
+    /// Crear conversación.
     /// </summary>
     /// <param name="modelo">Modelo.</param>
     public async static Task<CreateResponse> Create(ConversationModel modelo, string token)
@@ -98,13 +98,10 @@ public static class Conversations
 
 
 
-
-
-
     /// <summary>
-    /// Obtiene los mensajes asociados a una conversación
+    /// Obtiene los integrantes asociados a una conversación.
     /// </summary>
-    /// <param name="idConversation">ID de la conversación</param>
+    /// <param name="idConversation">ID de la conversación.</param>
     public async static Task<ReadAllResponse<MemberChatModel>> Members(int idConversation)
     {
 
@@ -146,7 +143,10 @@ public static class Conversations
 
 
 
-
+    /// <summary>
+    /// Obtiene si un perfil esta online.
+    /// </summary>
+    /// <param name="id">Id del perfil.</param>
     public async static Task<ReadOneResponse<IsOnlineResult>> IsOnline(int id)
     {
 
@@ -192,12 +192,11 @@ public static class Conversations
 
 
 
-
-
     /// <summary>
-    /// Obtiene los mensajes asociados a una conversación
+    /// Obtiene la información asociados a los miembros de una conversación.
     /// </summary>
-    /// <param name="idConversation">ID de la conversación</param>
+    /// <param name="idConversation">ID de la conversación.</param>
+    /// <param name="token">Token de acceso.</param>
     public async static Task<ReadAllResponse<SessionModel<MemberChatModel>>> MembersInfo(int idConversation, string token)
     {
 
@@ -239,6 +238,12 @@ public static class Conversations
 
 
 
+    /// <summary>
+    /// Buscar perfiles.
+    /// </summary>
+    /// <param name="pattern">Patron de búsqueda.</param>
+    /// <param name="token">Token de acceso Identity.</param>
+    /// <returns></returns>
     public async static Task<ReadAllResponse<SessionModel<ProfileModel>>> SearchProfiles(string pattern, string token)
     {
 
@@ -282,6 +287,7 @@ public static class Conversations
 
 
     }
+
 
 
 }

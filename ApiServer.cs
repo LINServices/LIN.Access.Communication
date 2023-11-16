@@ -4,29 +4,18 @@
 public static class ApiServer
 {
 
-    private static bool IsSeted = false;
-    private static string SetedUrl = "";
 
-    public static string GetURL
-    {
-        get
-        {
-
-            if (IsSeted)
-                return SetedUrl;
-
-            return "http://www.lincommunication.somee.com/";
-        }
-    }
+    /// <summary>
+    /// Url del servicio.
+    /// </summary>
+    public static string GetURL => "http://www.lincommunication.somee.com/";
 
 
 
-    public static void SetUrl(string url)
-    {
-        IsSeted = true;
-        SetedUrl = url;
-    }
-
+    /// <summary>
+    /// Juntar la url.
+    /// </summary>
+    /// <param name="value">Url de la API.</param>
     public static string PathURL(string value)
     {
         return GetURL + value;

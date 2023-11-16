@@ -4,6 +4,7 @@
 public sealed class ChatHub
 {
 
+
     /// <summary>
     /// Perfil conectado
     /// </summary>
