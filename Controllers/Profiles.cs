@@ -6,12 +6,12 @@ public static class Profiles
 
 
     /// <summary>
-    /// Iniciar sesión
+    /// Iniciar sesión.
     /// </summary>
     /// <param name="cuenta">Cuenta</param>
     /// <param name="password">Contraseña</param>
     /// <param name="app">App de contexto</param>
-    public async static Task<ReadOneResponse<Types.Auth.Abstracts.AuthModel<ProfileModel>>> Login(string cuenta, string password, string app)
+    public async static Task<ReadOneResponse<AuthModel<ProfileModel>>> Login(string cuenta, string password, string app)
     {
 
         // Crear HttpClient
@@ -63,7 +63,7 @@ public static class Profiles
     /// Login
     /// </summary>
     /// <param name="token">Token de acceso</param>
-    public async static Task<ReadOneResponse<Types.Auth.Abstracts.AuthModel<ProfileModel>>> Login(string token)
+    public async static Task<ReadOneResponse<AuthModel<ProfileModel>>> Login(string token)
     {
 
         // Crear HttpClient
