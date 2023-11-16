@@ -16,7 +16,6 @@ public static class ApiServer
                 return SetedUrl;
 
             return "http://www.lincommunication.somee.com/";
-            return "http://localhost:5270/";
         }
     }
 

@@ -19,7 +19,7 @@ public static class Conversations
 
         // ApiServer de la solicitud GET
         string url = ApiServer.PathURL("conversations/create");
-        var json = JsonConvert.SerializeObject(modelo);
+        var json = JsonSerializer.Serialize(modelo);
 
         try
         {
@@ -32,7 +32,7 @@ public static class Conversations
             // Lee la respuesta del servidor
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<CreateResponse>(responseContent);
+            var obj = JsonSerializer.Deserialize<CreateResponse>(responseContent);
 
             return obj ?? new();
 
@@ -77,7 +77,7 @@ public static class Conversations
             // Leer la respuesta como una cadena
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<ReadAllResponse<MemberChatModel>>(responseBody);
+            var obj = JsonSerializer.Deserialize<ReadAllResponse<MemberChatModel>>(responseBody);
 
             return obj ?? new();
 
@@ -125,7 +125,7 @@ public static class Conversations
             // Leer la respuesta como una cadena
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<ReadAllResponse<MemberChatModel>>(responseBody);
+            var obj = JsonSerializer.Deserialize<ReadAllResponse<MemberChatModel>>(responseBody);
 
             return obj ?? new();
 
@@ -171,7 +171,7 @@ public static class Conversations
             // Leer la respuesta como una cadena
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<ReadOneResponse<IsOnlineResult>>(responseBody);
+            var obj = JsonSerializer.Deserialize<ReadOneResponse<IsOnlineResult>>(responseBody);
 
             return obj ?? new();
 
@@ -218,7 +218,7 @@ public static class Conversations
             // Leer la respuesta como una cadena
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<ReadAllResponse<SessionModel<MemberChatModel>>>(responseBody);
+            var obj = JsonSerializer.Deserialize<ReadAllResponse<SessionModel<MemberChatModel>>>(responseBody);
 
             return obj ?? new();
 
@@ -264,7 +264,7 @@ public static class Conversations
             // Leer la respuesta como una cadena
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<ReadAllResponse<SessionModel<ProfileModel>>>(responseBody);
+            var obj = JsonSerializer.Deserialize<ReadAllResponse<SessionModel<ProfileModel>>>(responseBody);
 
             return obj ?? new();
 

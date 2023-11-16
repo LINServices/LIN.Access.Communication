@@ -1,13 +1,4 @@
-﻿global using LIN.Modules;
-global using LIN.Types.Communication.Models;
-global using LIN.Types.Responses;
-global using Newtonsoft.Json;
-global using System;
-global using System.Net.Http;
-global using System.Text;
-global using System.Threading.Tasks;
-
-namespace LIN.Access.Communication;
+﻿namespace LIN.Access.Communication;
 
 
 public sealed class Session

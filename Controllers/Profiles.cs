@@ -38,7 +38,7 @@ public static class Profiles
             // Leer la respuesta como una cadena
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<ReadOneResponse<Types.Auth.Abstracts.AuthModel<ProfileModel>>>(responseBody);
+            var obj = JsonSerializer.Deserialize<ReadOneResponse<Types.Auth.Abstracts.AuthModel<ProfileModel>>>(responseBody);
 
             return obj ?? new();
 
@@ -87,7 +87,7 @@ public static class Profiles
             // Leer la respuesta como una cadena
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<ReadOneResponse<Types.Auth.Abstracts.AuthModel<ProfileModel>>>(responseBody);
+            var obj = JsonSerializer.Deserialize<ReadOneResponse<Types.Auth.Abstracts.AuthModel<ProfileModel>>>(responseBody);
 
             return obj ?? new();
 

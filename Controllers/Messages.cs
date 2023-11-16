@@ -32,7 +32,7 @@ public static class Messages
             // Leer la respuesta como una cadena
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<ReadAllResponse<MessageModel>>(responseBody);
+            var obj = JsonSerializer.Deserialize<ReadAllResponse<MessageModel>>(responseBody);
 
             return obj ?? new();
 
@@ -68,7 +68,7 @@ public static class Messages
 
         // ApiServer de la solicitud GET
         string url = ApiServer.PathURL("emma");
-        var json = JsonConvert.SerializeObject(modelo);
+        var json = JsonSerializer.Serialize(modelo);
 
         try
         {
@@ -81,7 +81,7 @@ public static class Messages
             // Lee la respuesta del servidor
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            var obj = JsonConvert.DeserializeObject<ReadOneResponse<ResponseIAModel>>(responseContent);
+            var obj = JsonSerializer.Deserialize<ReadOneResponse<ResponseIAModel>>(responseContent);
 
             return obj ?? new();
 
