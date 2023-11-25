@@ -8,7 +8,14 @@ public static class ApiServer
     /// <summary>
     /// Url del servicio.
     /// </summary>
-    public static string GetURL => "http://www.lincommunication.somee.com/";
+    public static string GetURL
+    {
+        get
+        {
+            return "http://localhost:5270/";
+            return "http://lincommunication.somee.com/";
+        }
+    } 
 
 
 

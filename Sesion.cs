@@ -116,6 +116,8 @@ public sealed class Session
     {
         Instance.Profile = new();
         Instance.Account = new();
+        Instance.AccountToken = "";
+        Instance.Token = "";
     }
 
 
