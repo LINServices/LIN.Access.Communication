@@ -8,7 +8,7 @@ public sealed class Session
     /// <summary>
     /// Token de acceso.
     /// </summary>
-    public string Token { get; private set; }
+    public string Token { get; set; } = string.Empty;
 
 
 
