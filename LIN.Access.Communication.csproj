@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -12,9 +12,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Tipos\LIN.Modules\LIN.Modules.csproj" />
-    <ProjectReference Include="..\..\Tipos\LIN.Types.Auth\LIN.Types.Auth.csproj" />
     <ProjectReference Include="..\..\Tipos\LIN.Types.Communication\LIN.Types.Communication.csproj" />
     <ProjectReference Include="..\..\Tipos\LIN.Types.Emma\LIN.Types.Emma.csproj" />
+    <ProjectReference Include="..\..\Tipos\LIN.Types.Identity\LIN.Types.Identity\LIN.Types.Identity.csproj" />
     <ProjectReference Include="..\..\Tipos\LIN.Types\LIN.Types.csproj" />
   </ItemGroup>
 

@@ -12,6 +12,8 @@ public static class ApiServer
     {
         get
         {
+            return "http://localhost:5270/";
+            return "http://api.communication.linapps.co/";
             return "http://lincommunication.somee.com/";
             return "http://localhost:5270/";
         }

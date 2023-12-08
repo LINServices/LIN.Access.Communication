@@ -324,8 +324,11 @@ public static class Conversations
         try
         {
 
+            // Crear HttpRequestMessage y agregar el encabezado
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
+
             // Hacer la solicitud GET
-            var response = await httpClient.GetAsync(url);
+            HttpResponseMessage response = await httpClient.SendAsync(request);
 
             // Leer la respuesta como una cadena
             string responseBody = await response.Content.ReadAsStringAsync();
@@ -349,7 +352,7 @@ public static class Conversations
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Error al hacer la solicitud GET: {e.Message}");
+            Console.WriteLine($"Error al hacer la solicitud GETO: {e.Message}");
         }
 
 
@@ -387,6 +390,55 @@ public static class Conversations
 
             // Envía la solicitud
             var response = await httpClient.PostAsync(url, content);
+
+            // Lee la respuesta del servidor
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            var obj = JsonSerializer.Deserialize<CreateResponse>(responseContent);
+
+            return obj ?? new();
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error al hacer la solicitud GET: {e.Message}");
+        }
+
+
+        return new();
+
+
+
+
+
+    }
+
+
+
+
+    public async static Task<CreateResponse> Insert(int conversation, int profile, string token)
+    {
+
+        // Crear HttpClient
+        using var httpClient = new HttpClient();
+
+        httpClient.DefaultRequestHeaders.Add("token", token);
+
+        // ApiServer de la solicitud GET
+        string url = ApiServer.PathURL($"conversations/{conversation}/members/add");
+
+        url = Web.AddParameters(url, new()
+        {
+            {"profileId", profile.ToString() }
+        });
+
+        try
+        {
+            // Contenido
+            StringContent content = new("", Encoding.UTF8, "application/json");
+
+            // Envía la solicitud
+            var response = await httpClient.GetAsync(url);
 
             // Lee la respuesta del servidor
             var responseContent = await response.Content.ReadAsStringAsync();
