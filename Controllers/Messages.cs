@@ -1,4 +1,6 @@
-﻿using LIN.Types.Emma.Models;
+﻿using LIN.Access.Communication.Services;
+using LIN.Types;
+using LIN.Types.Emma.Models;
 
 namespace LIN.Access.Communication.Controllers;
 
@@ -16,40 +18,14 @@ public static class Messages
     public async static Task<ReadAllResponse<MessageModel>> ReadAll(int idConversation, int lastId = 0, string token = "")
     {
 
-        // Crear HttpClient
-        using var httpClient = new HttpClient();
+        // Cliente
+        Client client = Service.GetClient($"conversations/{idConversation}/messages");
 
-        httpClient.DefaultRequestHeaders.Add("lastID", lastId.ToString());
-        httpClient.DefaultRequestHeaders.Add("token", token);
+        // Headers.
+        client.AddHeader("token", token);
+        client.AddHeader("lastID", lastId.ToString());
 
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL($"conversations/{idConversation}/messages");
-
-        try
-        {
-
-            // Hacer la solicitud GET
-            var response = await httpClient.GetAsync(url);
-
-            // Leer la respuesta como una cadena
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonSerializer.Deserialize<ReadAllResponse<MessageModel>>(responseBody);
-
-            return obj ?? new();
-
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {e.Message}");
-        }
-
-
-        return new();
-
-
-
-
+        return await client.Get<ReadAllResponse<MessageModel>>();
 
     }
 
@@ -63,42 +39,13 @@ public static class Messages
     public async static Task<ReadOneResponse<ResponseIAModel>> ToEmma(string modelo, string token)
     {
 
-        // Crear HttpClient
-        using var httpClient = new HttpClient();
-        httpClient.DefaultRequestHeaders.Add("token", token);
+        // Cliente
+        Client client = Service.GetClient($"emma");
 
+        // Headers.
+        client.AddHeader("token", token);
 
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL("emma");
-        var json = JsonSerializer.Serialize(modelo);
-
-        try
-        {
-            // Contenido
-            StringContent content = new(json, Encoding.UTF8, "application/json");
-
-            // Envía la solicitud
-            var response = await httpClient.PostAsync(url, content);
-
-            // Lee la respuesta del servidor
-            var responseContent = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonSerializer.Deserialize<ReadOneResponse<ResponseIAModel>>(responseContent);
-
-            return obj ?? new();
-
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {e.Message}");
-        }
-
-
-        return new();
-
-
-
-
+        return await client.Post<ReadOneResponse<ResponseIAModel>>(modelo);
 
     }
 

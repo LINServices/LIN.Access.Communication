@@ -1,4 +1,6 @@
-﻿namespace LIN.Access.Communication.Hubs;
+﻿using LIN.Access.Communication.Services;
+
+namespace LIN.Access.Communication.Hubs;
 
 
 public sealed class ChatHub
@@ -55,7 +57,7 @@ public sealed class ChatHub
         {
             // Crea la conexión al HUB
             HubConnection = new HubConnectionBuilder()
-                 .WithUrl(ApiServer.PathURL("chat"))
+                 .WithUrl(Service.PathURL("chat"))
                  .WithAutomaticReconnect()
                  .Build();
 

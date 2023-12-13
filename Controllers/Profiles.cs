@@ -1,4 +1,6 @@
-﻿namespace LIN.Access.Communication.Controllers;
+﻿using LIN.Access.Communication.Services;
+
+namespace LIN.Access.Communication.Controllers;
 
 
 public static class Profiles
@@ -14,46 +16,16 @@ public static class Profiles
     public async static Task<ReadOneResponse<AuthModel<ProfileModel>>> Login(string cuenta, string password, string app)
     {
 
-        // Crear HttpClient
-        using var httpClient = new HttpClient();
+        // Cliente
+        Client client = Service.GetClient($"profile/login");
 
-        httpClient.DefaultRequestHeaders.Add("app", app);
+        // Headers.
+        client.AddHeader("app", app);
 
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL("profile/login");
+        client.AddParameter("user", cuenta);
+        client.AddParameter("password", password);
 
-
-        url = Web.AddParameters(url, new(){
-            {"user", cuenta },
-             {"password", password }
-        });
-
-
-        try
-        {
-
-            // Hacer la solicitud GET
-            var response = await httpClient.GetAsync(url);
-
-            // Leer la respuesta como una cadena
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonSerializer.Deserialize<ReadOneResponse<Types.Identity.Abstracts.AuthModel<ProfileModel>>>(responseBody);
-
-            return obj ?? new();
-
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {e.Message}");
-        }
-
-
-        return new();
-
-
-
-
+        return await client.Get<ReadOneResponse<Types.Identity.Abstracts.AuthModel<ProfileModel>>>();
 
     }
 
@@ -66,43 +38,13 @@ public static class Profiles
     public async static Task<ReadOneResponse<AuthModel<ProfileModel>>> Login(string token)
     {
 
-        // Crear HttpClient
-        using var httpClient = new HttpClient();
+        // Cliente
+        Client client = Service.GetClient($"profile/login/token");
 
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL("profile/login/token");
+        // Headers.
+        client.AddHeader("token", token);
 
-
-        url = Web.AddParameters(url, new(){
-            {"token", token }
-        });
-
-
-        try
-        {
-
-            // Hacer la solicitud GET
-            var response = await httpClient.GetAsync(url);
-
-            // Leer la respuesta como una cadena
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonSerializer.Deserialize<ReadOneResponse<Types.Identity.Abstracts.AuthModel<ProfileModel>>>(responseBody);
-
-            return obj ?? new();
-
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {e.Message}");
-        }
-
-
-        return new();
-
-
-
-
+        return await client.Get<ReadOneResponse<Types.Identity.Abstracts.AuthModel<ProfileModel>>>();
 
     }
 

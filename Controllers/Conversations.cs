@@ -1,4 +1,9 @@
-﻿namespace LIN.Access.Communication.Controllers;
+﻿using LIN.Access.Communication.Services;
+using LIN.Types.Identity.Abstracts;
+using LIN.Types.Responses;
+using System.Reflection;
+
+namespace LIN.Access.Communication.Controllers;
 
 
 public static class Conversations
@@ -12,42 +17,13 @@ public static class Conversations
     public async static Task<CreateResponse> Create(ConversationModel modelo, string token)
     {
 
-        // Crear HttpClient
-        using var httpClient = new HttpClient();
+        // Cliente
+        Client client = Service.GetClient("conversations/create");
 
-        httpClient.DefaultRequestHeaders.Add("token", token);
+        // Headers.
+        client.AddHeader("token", token);
 
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL("conversations/create");
-        var json = JsonSerializer.Serialize(modelo);
-
-        try
-        {
-            // Contenido
-            StringContent content = new(json, Encoding.UTF8, "application/json");
-
-            // Envía la solicitud
-            var response = await httpClient.PostAsync(url, content);
-
-            // Lee la respuesta del servidor
-            var responseContent = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonSerializer.Deserialize<CreateResponse>(responseContent);
-
-            return obj ?? new();
-
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {e.Message}");
-        }
-
-
-        return new();
-
-
-
-
+        return await client.Post<CreateResponse>(modelo);
 
     }
 
@@ -60,51 +36,14 @@ public static class Conversations
     public async static Task<ReadAllResponse<MemberChatModel>> ReadAll(string token, string tokenAuth)
     {
 
-        // Crear HttpClient
-        using var httpClient = new HttpClient();
+        // Cliente
+        Client client = Service.GetClient("conversations/read/all");
 
-        httpClient.DefaultRequestHeaders.Add("token", token);
-        httpClient.DefaultRequestHeaders.Add("tokenAuth", tokenAuth);
+        // Headers.
+        client.AddHeader("token", token);
+        client.AddHeader("tokenAuth", tokenAuth);
 
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL("conversations/read/all");
-
-        try
-        {
-
-            // Hacer la solicitud GET
-            var response = await httpClient.GetAsync(url);
-
-            // Leer la respuesta como una cadena
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonSerializer.Deserialize<ReadAllResponse<MemberChatModel>>(responseBody);
-
-            try
-            {
-                var lista = JsonSerializer.Deserialize<List<AccountModel>>(obj.AlternativeObject.ToString() ?? "");
-
-                obj.AlternativeObject = lista;
-            }
-            catch (Exception)
-            {
-
-            }
-
-            return obj ?? new();
-
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {e.Message}");
-        }
-
-
-        return new();
-
-
-
-
+        return await client.Get<ReadAllResponse<MemberChatModel>>();
 
     }
 
@@ -114,42 +53,16 @@ public static class Conversations
     /// Obtiene los integrantes asociados a una conversación.
     /// </summary>
     /// <param name="idConversation">ID de la conversación.</param>
-    public async static Task<ReadAllResponse<MemberChatModel>> Members(int idConversation)
+    public async static Task<ReadAllResponse<MemberChatModel>> Members(int idConversation, string token)
     {
 
-        // Crear HttpClient
-        using var httpClient = new HttpClient();
+        // Cliente
+        Client client = Service.GetClient($"conversations/{idConversation}/members");
 
-        httpClient.DefaultRequestHeaders.Add("token", "");
+        // Headers.
+        client.AddHeader("token", token);
 
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL($"conversations/{idConversation}/members");
-
-        try
-        {
-
-            // Hacer la solicitud GET
-            var response = await httpClient.GetAsync(url);
-
-            // Leer la respuesta como una cadena
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonSerializer.Deserialize<ReadAllResponse<MemberChatModel>>(responseBody);
-
-            return obj ?? new();
-
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {e.Message}");
-        }
-
-
-        return new();
-
-
-
-
+        return await client.Get<ReadAllResponse<MemberChatModel>>();
 
     }
 
@@ -159,46 +72,19 @@ public static class Conversations
     /// Obtiene si un perfil esta online.
     /// </summary>
     /// <param name="id">Id del perfil.</param>
-    public async static Task<ReadOneResponse<IsOnlineResult>> IsOnline(int id)
+    public async static Task<ReadOneResponse<IsOnlineResult>> IsOnline(int id, string token)
     {
 
-        // Crear HttpClient
-        using var httpClient = new HttpClient();
+        // Cliente
+        Client client = Service.GetClient("conversations/isOnline");
 
+        // Headers.
+        client.AddHeader("token", token);
 
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL($"conversations/isOnline");
+        // Parámetros.
+        client.AddParameter("id", id.ToString());
 
-        url = Web.AddParameters(url, new()
-        {
-            {"id", id.ToString() }
-        });
-
-        try
-        {
-
-            // Hacer la solicitud GET
-            var response = await httpClient.GetAsync(url);
-
-            // Leer la respuesta como una cadena
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonSerializer.Deserialize<ReadOneResponse<IsOnlineResult>>(responseBody);
-
-            return obj ?? new();
-
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {e.Message}");
-        }
-
-
-        return new();
-
-
-
-
+        return await client.Get<ReadOneResponse<IsOnlineResult>>();
 
     }
 
@@ -212,40 +98,14 @@ public static class Conversations
     public async static Task<ReadAllResponse<SessionModel<MemberChatModel>>> MembersInfo(int idConversation, string token, string tokenAuth)
     {
 
-        // Crear HttpClient
-        using var httpClient = new HttpClient();
+        // Cliente
+        Client client = Service.GetClient($"conversations/{idConversation}/members/info");
 
-        httpClient.DefaultRequestHeaders.Add("token", $"{token}");
-        httpClient.DefaultRequestHeaders.Add("tokenAuth", $"{tokenAuth}");
+        // Headers.
+        client.AddHeader("token", token);
+        client.AddHeader("tokenAuth", tokenAuth);
 
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL($"conversations/{idConversation}/members/info");
-
-        try
-        {
-
-            // Hacer la solicitud GET
-            var response = await httpClient.GetAsync(url);
-
-            // Leer la respuesta como una cadena
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonSerializer.Deserialize<ReadAllResponse<SessionModel<MemberChatModel>>>(responseBody);
-
-            return obj ?? new();
-
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {e.Message}");
-        }
-
-
-        return new();
-
-
-
-
+        return await client.Get<ReadAllResponse<SessionModel<MemberChatModel>>>();
 
     }
 
@@ -256,48 +116,19 @@ public static class Conversations
     /// </summary>
     /// <param name="pattern">Patron de búsqueda.</param>
     /// <param name="token">Token de acceso Identity.</param>
-    /// <returns></returns>
     public async static Task<ReadAllResponse<SessionModel<ProfileModel>>> SearchProfiles(string pattern, string token)
     {
 
-        // Crear HttpClient
-        using var httpClient = new HttpClient();
+        // Cliente
+        Client client = Service.GetClient($"profile/search");
 
-        httpClient.DefaultRequestHeaders.Add("token", $"{token}");
+        // Headers.
+        client.AddHeader("token", token);
 
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL($"profile/search");
+        // Parámetro.
+        client.AddParameter("pattern", pattern);
 
-        url = Web.AddParameters(url, new()
-        {
-            {"pattern", pattern }
-        });
-
-        try
-        {
-
-            // Hacer la solicitud GET
-            var response = await httpClient.GetAsync(url);
-
-            // Leer la respuesta como una cadena
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonSerializer.Deserialize<ReadAllResponse<SessionModel<ProfileModel>>>(responseBody);
-
-            return obj ?? new();
-
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {e.Message}");
-        }
-
-
-        return new();
-
-
-
-
+        return await client.Get<ReadAllResponse<SessionModel<ProfileModel>>>();
 
     }
 
@@ -307,60 +138,17 @@ public static class Conversations
     public async static Task<ReadOneResponse<MemberChatModel>> Read(int id, string token, string tokenAuth)
     {
 
-        // Crear HttpClient
-        using var httpClient = new HttpClient();
+        // Cliente
+        Client client = Service.GetClient($"conversations/read/one");
 
-        httpClient.DefaultRequestHeaders.Add("token", $"{token}");
-        httpClient.DefaultRequestHeaders.Add("tokenAuth", $"{tokenAuth}");
+        // Headers.
+        client.AddHeader("token", token);
+        client.AddHeader("tokenAuth", tokenAuth);
 
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL($"conversations/read/one");
+        // Parámetro.
+        client.AddParameter("id", id.ToString());
 
-        url = Web.AddParameters(url, new()
-        {
-            {"id", id.ToString() }
-        });
-
-        try
-        {
-
-            // Crear HttpRequestMessage y agregar el encabezado
-            var request = new HttpRequestMessage(HttpMethod.Get, url);
-
-            // Hacer la solicitud GET
-            HttpResponseMessage response = await httpClient.SendAsync(request);
-
-            // Leer la respuesta como una cadena
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonSerializer.Deserialize<ReadOneResponse<MemberChatModel>>(responseBody);
-
-            try
-            {
-                var lista = JsonSerializer.Deserialize<List<AccountModel>>(obj.AlternativeObject.ToString() ?? "");
-
-                obj.AlternativeObject = lista;
-            }
-            catch (Exception)
-            {
-
-            }
-
-
-            return obj ?? new();
-
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GETO: {e.Message}");
-        }
-
-
-        return new();
-
-
-
-
+        return await client.Get<ReadOneResponse<MemberChatModel>>();
 
     }
 
@@ -374,42 +162,14 @@ public static class Conversations
     public async static Task<CreateResponse> Find(int friend, string token)
     {
 
-        // Crear HttpClient
-        using var httpClient = new HttpClient();
+        // Cliente
+        Client client = Service.GetClient($"conversations/find");
 
-        httpClient.DefaultRequestHeaders.Add("token", token);
-        httpClient.DefaultRequestHeaders.Add("friendId", friend.ToString());
+        // Headers.
+        client.AddHeader("token", token);
+        client.AddHeader("friendId", friend.ToString());
 
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL("conversations/find");
-
-        try
-        {
-            // Contenido
-            StringContent content = new("", Encoding.UTF8, "application/json");
-
-            // Envía la solicitud
-            var response = await httpClient.PostAsync(url, content);
-
-            // Lee la respuesta del servidor
-            var responseContent = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonSerializer.Deserialize<CreateResponse>(responseContent);
-
-            return obj ?? new();
-
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {e.Message}");
-        }
-
-
-        return new();
-
-
-
-
+        return await client.Post<CreateResponse>();
 
     }
 
@@ -419,46 +179,15 @@ public static class Conversations
     public async static Task<CreateResponse> Insert(int conversation, int profile, string token)
     {
 
-        // Crear HttpClient
-        using var httpClient = new HttpClient();
+        // Cliente
+        Client client = Service.GetClient($"conversations/{conversation}/members/add");
 
-        httpClient.DefaultRequestHeaders.Add("token", token);
+        // Headers.
+        client.AddHeader("token", token);
 
-        // ApiServer de la solicitud GET
-        string url = ApiServer.PathURL($"conversations/{conversation}/members/add");
+        client.AddParameter("profileId", profile.ToString());
 
-        url = Web.AddParameters(url, new()
-        {
-            {"profileId", profile.ToString() }
-        });
-
-        try
-        {
-            // Contenido
-            StringContent content = new("", Encoding.UTF8, "application/json");
-
-            // Envía la solicitud
-            var response = await httpClient.GetAsync(url);
-
-            // Lee la respuesta del servidor
-            var responseContent = await response.Content.ReadAsStringAsync();
-
-            var obj = JsonSerializer.Deserialize<CreateResponse>(responseContent);
-
-            return obj ?? new();
-
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error al hacer la solicitud GET: {e.Message}");
-        }
-
-
-        return new();
-
-
-
-
+        return await client.Get<CreateResponse>();
 
     }
 
