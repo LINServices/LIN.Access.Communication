@@ -6,6 +6,18 @@ internal class Client : HttpClient
 
 
 
+    private Dictionary<string, string> Params = [];
+
+
+    private void Build()
+    {
+        string url = Web.AddParameters(BaseAddress?.ToString() ?? "", Params);
+        BaseAddress = new Uri(url);
+    }
+
+
+
+
     /// <summary>
     /// Nuevo cliente.
     /// </summary>
@@ -26,18 +38,12 @@ internal class Client : HttpClient
     /// <summary>
     /// Agregar parámetro a la url
     /// </summary>
-    /// <param name="name">Nombre</param>
+    /// <param name="name">Name</param>
     /// <param name="value">Valor</param>
     public void AddParameter(string name, string value)
     {
-        string url = Web.AddParameters(BaseAddress?.ToString() ?? "", new()
-        {
-           {name, value }
-        });
-
-        BaseAddress = new Uri(url);
+        Params.Add(name, value);
     }
-
 
 
     /// <summary>
@@ -55,7 +61,7 @@ internal class Client : HttpClient
     /// <summary>
     /// Agregar un header.
     /// </summary>
-    /// <param name="name">Nombre</param>
+    /// <param name="name">Name</param>
     /// <param name="value">Valor</param>
     public void AddHeader(string name, string value)
     {
@@ -69,6 +75,8 @@ internal class Client : HttpClient
     /// </summary>
     public async Task<T> Get<T>() where T : new()
     {
+        Build();
+
 
         // Resultado.
         var result = await GetAsync(string.Empty);
@@ -91,6 +99,8 @@ internal class Client : HttpClient
     /// <param name="body">Body de documento.</param>
     public async Task<T> Patch<T>(object? body = null) where T : new()
     {
+
+        Build();
 
         // Body en JSON.
         string json = JsonSerializer.Serialize(body ?? new { });
@@ -119,6 +129,8 @@ internal class Client : HttpClient
     /// <param name="body">Body de documento.</param>
     public async Task<T> Post<T>(object? body = null) where T : new()
     {
+        Build();
+
 
         // Body en JSON.
         string json = JsonSerializer.Serialize(body);
@@ -147,6 +159,8 @@ internal class Client : HttpClient
     /// <param name="body">Body de documento.</param>
     public async Task<T> Put<T>(object? body = null) where T : new()
     {
+        Build();
+
 
         // Body en JSON.
         string json = JsonSerializer.Serialize(body);
@@ -174,6 +188,8 @@ internal class Client : HttpClient
     /// </summary>
     public async Task<T> Delete<T>() where T : new()
     {
+
+        Build();
 
         // Resultado.
         var result = await DeleteAsync(string.Empty);

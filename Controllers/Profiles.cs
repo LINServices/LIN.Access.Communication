@@ -25,7 +25,7 @@ public static class Profiles
         client.AddParameter("user", cuenta);
         client.AddParameter("password", password);
 
-        return await client.Get<ReadOneResponse<Types.Identity.Abstracts.AuthModel<ProfileModel>>>();
+        return await client.Get<ReadOneResponse<Types.Cloud.Identity.Abstracts.AuthModel<ProfileModel>>>();
 
     }
 
@@ -42,9 +42,9 @@ public static class Profiles
         Client client = Service.GetClient($"profile/login/token");
 
         // Headers.
-        client.AddHeader("token", token);
+        client.AddParameter("token", token);
 
-        return await client.Get<ReadOneResponse<Types.Identity.Abstracts.AuthModel<ProfileModel>>>();
+        return await client.Get<ReadOneResponse<Types.Cloud.Identity.Abstracts.AuthModel<ProfileModel>>>();
 
     }
 

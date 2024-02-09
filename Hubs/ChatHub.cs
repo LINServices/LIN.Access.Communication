@@ -8,7 +8,7 @@ public sealed class ChatHub
 
 
     /// <summary>
-    /// Perfil conectado
+    /// Profile conectado
     /// </summary>
     private ProfileModel Profile { get; set; }
 
@@ -29,7 +29,7 @@ public sealed class ChatHub
 
 
     /// <summary>
-    /// Obtiene el ID asociado al Hub
+    /// Obtiene el Id asociado al Hub
     /// </summary>
     public string ID => HubConnection?.ConnectionId ?? string.Empty;
 
@@ -39,7 +39,7 @@ public sealed class ChatHub
     /// <summary>
     /// Nueva conexión en tiempo real para chat
     /// </summary>
-    /// <param name="profile">Perfil</param>
+    /// <param name="profile">Profile</param>
     public ChatHub(ProfileModel profile)
     {
         this.Profile = profile;
@@ -101,7 +101,7 @@ public sealed class ChatHub
     /// <summary>
     /// Une a una conversación
     /// </summary>
-    /// <param name="group">ID de la conversación</param>
+    /// <param name="group">Id de la conversación</param>
     public async Task JoinGroup(int group)
     {
 
@@ -124,7 +124,7 @@ public sealed class ChatHub
     /// <summary>
     /// Enviar mensaje
     /// </summary>
-    /// <param name="group">ID de la conversación</param>
+    /// <param name="group">Id de la conversación</param>
     /// <param name="message">Mensaje</param>
     public async Task<bool> SendMessage(int group, string message, string guid)
     {

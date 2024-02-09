@@ -12,8 +12,8 @@ public static class Messages
     /// <summary>
     /// Obtiene los mensajes asociados a una conversación.
     /// </summary>
-    /// <param name="idConversation">ID de la conversación.</param>
-    /// <param name="lastId">ID del ultimo mensaje a buscar.</param>
+    /// <param name="idConversation">Id de la conversación.</param>
+    /// <param name="lastId">Id del ultimo mensaje a buscar.</param>
     /// <param name="token">Token de acceso.</param>
     public async static Task<ReadAllResponse<MessageModel>> ReadAll(int idConversation, int lastId = 0, string token = "")
     {

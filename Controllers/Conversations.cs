@@ -1,5 +1,4 @@
 ﻿using LIN.Access.Communication.Services;
-using LIN.Types.Identity.Abstracts;
 using LIN.Types.Responses;
 using System.Reflection;
 
@@ -52,7 +51,7 @@ public static class Conversations
     /// <summary>
     /// Obtiene los integrantes asociados a una conversación.
     /// </summary>
-    /// <param name="idConversation">ID de la conversación.</param>
+    /// <param name="idConversation">Id de la conversación.</param>
     public async static Task<ReadAllResponse<MemberChatModel>> Members(int idConversation, string token)
     {
 
@@ -93,7 +92,7 @@ public static class Conversations
     /// <summary>
     /// Obtiene la información asociados a los miembros de una conversación.
     /// </summary>
-    /// <param name="idConversation">ID de la conversación.</param>
+    /// <param name="idConversation">Id de la conversación.</param>
     /// <param name="token">Token de acceso.</param>
     public async static Task<ReadAllResponse<SessionModel<MemberChatModel>>> MembersInfo(int idConversation, string token, string tokenAuth)
     {
