@@ -1,6 +1,4 @@
-﻿using LIN.Access.Communication.Services;
-using LIN.Types;
-using LIN.Types.Emma.Models;
+﻿using LIN.Types.Emma.Models;
 
 namespace LIN.Access.Communication.Controllers;
 

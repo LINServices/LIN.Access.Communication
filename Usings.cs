@@ -12,3 +12,4 @@ global using LIN.Types.Enumerations;
 global using Microsoft.AspNetCore.SignalR.Client;
 global using LIN.Types.Cloud.Identity.Abstracts;
 global using LIN.Types.Communication.Models;
+global using LIN.Access.Services;

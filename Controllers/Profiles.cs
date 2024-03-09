@@ -1,6 +1,4 @@
-﻿using LIN.Access.Communication.Services;
-
-namespace LIN.Access.Communication.Controllers;
+﻿namespace LIN.Access.Communication.Controllers;
 
 
 public static class Profiles
