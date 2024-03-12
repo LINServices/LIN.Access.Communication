@@ -41,7 +41,7 @@ public static class Messages
         Client client = Service.GetClient($"emma");
 
         // Headers.
-        client.AddHeader("token", token);
+        client.AddHeader("tokenAuth", token);
 
         return await client.Post<ReadOneResponse<ResponseIAModel>>(modelo);
 
