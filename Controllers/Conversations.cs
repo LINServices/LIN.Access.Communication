@@ -63,6 +63,27 @@ public static class Conversations
 
 
 
+
+    /// <summary>
+    /// Eliminar un integrante
+    /// </summary>
+    /// <param name="idConversation">Remove.</param>
+    public async static Task<ResponseBase> Remove(int idConversation, int profile, string token)
+    {
+
+        // Cliente
+        Client client = Service.GetClient($"conversations/{idConversation}/members");
+
+        // Headers.
+        client.AddHeader("token", token);
+        client.AddParameter("profileId", profile);
+
+        return await client.Delete<ResponseBase>();
+
+    }
+
+
+
     /// <summary>
     /// Obtiene si un perfil esta online.
     /// </summary>
