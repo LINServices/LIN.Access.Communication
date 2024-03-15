@@ -209,4 +209,23 @@ public static class Conversations
 
 
 
+    public async static Task<CreateResponse> UpdateName(int conversation, string name, string token)
+    {
+
+        // Cliente
+        Client client = Service.GetClient($"conversations/update/name");
+
+        // Headers.
+        client.AddHeader("token", token);
+
+        client.AddParameter("id", conversation);
+
+        client.AddParameter("newName", name);
+
+        return await client.Put<CreateResponse>();
+
+    }
+
+
+
 }
