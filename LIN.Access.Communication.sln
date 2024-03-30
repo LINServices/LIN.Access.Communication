@@ -5,8 +5,6 @@ VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LIN.Access.Communication", "LIN.Access.Communication.csproj", "{1FEC08DF-A0BA-4EB6-93DD-D2942174B60E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LIN.Access", "..\LIN.Access\LIN.Access\LIN.Access.csproj", "{DE8BCEC6-2C74-453A-A650-86FE1CE41425}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{1FEC08DF-A0BA-4EB6-93DD-D2942174B60E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FEC08DF-A0BA-4EB6-93DD-D2942174B60E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FEC08DF-A0BA-4EB6-93DD-D2942174B60E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DE8BCEC6-2C74-453A-A650-86FE1CE41425}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DE8BCEC6-2C74-453A-A650-86FE1CE41425}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DE8BCEC6-2C74-453A-A650-86FE1CE41425}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DE8BCEC6-2C74-453A-A650-86FE1CE41425}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
 	  <TargetFramework>netstandard2.1</TargetFramework>
@@ -8,16 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Global.Http" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Tipos\LIN.Modules\LIN.Modules.csproj" />
     <ProjectReference Include="..\..\Tipos\LIN.Types.Cloud.Identity\LIN.Types.Cloud.Identity.csproj" />
     <ProjectReference Include="..\..\Tipos\LIN.Types.Communication\LIN.Types.Communication.csproj" />
     <ProjectReference Include="..\..\Tipos\LIN.Types.Emma\LIN.Types.Emma.csproj" />
     <ProjectReference Include="..\..\Tipos\LIN.Types\LIN.Types.csproj" />
-    <ProjectReference Include="..\LIN.Access\LIN.Access\LIN.Access.csproj" />
   </ItemGroup>
 
 </Project>
