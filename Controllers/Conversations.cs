@@ -6,14 +6,15 @@ public static class Conversations
 
 
     /// <summary>
-    /// Crear conversación.
+    /// Crear nueva conversación.
     /// </summary>
     /// <param name="modelo">Modelo.</param>
+    /// <param name="token">Token de acceso.</param>
     public async static Task<CreateResponse> Create(ConversationModel modelo, string token)
     {
 
         // Cliente
-        Client client = Service.GetClient("conversations/create");
+        Client client = Service.GetClient("conversations");
 
         // Headers.
         client.AddHeader("token", token);
@@ -25,14 +26,15 @@ public static class Conversations
 
 
     /// <summary>
-    /// Obtiene las conversaciones asociadas a un perfil.
+    /// Obtener las conversaciones de un perfil.
     /// </summary>
-    /// <param name="token">Token de acceso</param>
+    /// <param name="token">Token de acceso.</param>
+    /// <param name="tokenAuth">Token de Identity.</param>
     public async static Task<ReadAllResponse<MemberChatModel>> ReadAll(string token, string tokenAuth)
     {
 
         // Cliente
-        Client client = Service.GetClient("conversations/read/all");
+        Client client = Service.GetClient("conversations/all");
 
         // Headers.
         client.AddHeader("token", token);
@@ -45,117 +47,16 @@ public static class Conversations
 
 
     /// <summary>
-    /// Obtiene los integrantes asociados a una conversación.
+    /// Obtener una conversación.
     /// </summary>
-    /// <param name="idConversation">Id de la conversación.</param>
-    public async static Task<ReadAllResponse<MemberChatModel>> Members(int idConversation, string token)
-    {
-
-        // Cliente
-        Client client = Service.GetClient($"conversations/{idConversation}/members");
-
-        // Headers.
-        client.AddHeader("token", token);
-
-        return await client.Get<ReadAllResponse<MemberChatModel>>();
-
-    }
-
-
-
-
-    /// <summary>
-    /// Eliminar un integrante
-    /// </summary>
-    /// <param name="idConversation">Remove.</param>
-    public async static Task<ResponseBase> Remove(int idConversation, int profile, string token)
-    {
-
-        // Cliente
-        Client client = Service.GetClient($"conversations/{idConversation}/members");
-
-        // Headers.
-        client.AddHeader("token", token);
-        client.AddParameter("profileId", profile);
-
-        return await client.Delete<ResponseBase>();
-
-    }
-
-
-
-    /// <summary>
-    /// Obtiene si un perfil esta online.
-    /// </summary>
-    /// <param name="id">Id del perfil.</param>
-    public async static Task<ReadOneResponse<IsOnlineResult>> IsOnline(int id, string token)
-    {
-
-        // Cliente
-        Client client = Service.GetClient("conversations/isOnline");
-
-        // Headers.
-        client.AddHeader("token", token);
-
-        // Parámetros.
-        client.AddParameter("id", id.ToString());
-
-        return await client.Get<ReadOneResponse<IsOnlineResult>>();
-
-    }
-
-
-
-    /// <summary>
-    /// Obtiene la información asociados a los miembros de una conversación.
-    /// </summary>
-    /// <param name="idConversation">Id de la conversación.</param>
+    /// <param name="id">Id de la conversación.</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ReadAllResponse<SessionModel<MemberChatModel>>> MembersInfo(int idConversation, string token, string tokenAuth)
-    {
-
-        // Cliente
-        Client client = Service.GetClient($"conversations/{idConversation}/members/info");
-
-        // Headers.
-        client.AddHeader("token", token);
-        client.AddHeader("tokenAuth", tokenAuth);
-
-        return await client.Get<ReadAllResponse<SessionModel<MemberChatModel>>>();
-
-    }
-
-
-
-    /// <summary>
-    /// Buscar perfiles.
-    /// </summary>
-    /// <param name="pattern">Patron de búsqueda.</param>
-    /// <param name="token">Token de acceso Identity.</param>
-    public async static Task<ReadAllResponse<SessionModel<ProfileModel>>> SearchProfiles(string pattern, string token)
-    {
-
-        // Cliente
-        Client client = Service.GetClient($"profile/search");
-
-        // Headers.
-        client.AddHeader("token", token);
-
-        // Parámetro.
-        client.AddParameter("pattern", pattern);
-
-        return await client.Get<ReadAllResponse<SessionModel<ProfileModel>>>();
-
-    }
-
-
-
-
+    /// <param name="tokenAuth">Token de identity.</param>
     public async static Task<ReadOneResponse<MemberChatModel>> Read(int id, string token, string tokenAuth)
     {
 
         // Cliente
-        Client client = Service.GetClient($"conversations/read/one");
+        Client client = Service.GetClient($"conversations");
 
         // Headers.
         client.AddHeader("token", token);
@@ -170,59 +71,26 @@ public static class Conversations
 
 
 
-
-
-
-
-
-    public async static Task<CreateResponse> Find(int friend, string token)
+    /// <summary>
+    /// Actualizar el nombre.
+    /// </summary>
+    /// <param name="id">Id de la conversación.</param>
+    /// <param name="name">Nuevo nombre.</param>
+    /// <param name="token">Token de acceso.</param>
+    public async static Task<CreateResponse> UpdateName(int id, string name, string token)
     {
 
         // Cliente
-        Client client = Service.GetClient($"conversations/find");
-
-        // Headers.
-        client.AddHeader("token", token);
-        client.AddHeader("friendId", friend.ToString());
-
-        return await client.Post<CreateResponse>();
-
-    }
-
-
-
-
-    public async static Task<CreateResponse> Insert(int conversation, int profile, string token)
-    {
-
-        // Cliente
-        Client client = Service.GetClient($"conversations/{conversation}/members/add");
+        Client client = Service.GetClient($"conversations/name");
 
         // Headers.
         client.AddHeader("token", token);
 
-        client.AddParameter("profileId", profile.ToString());
-
-        return await client.Get<CreateResponse>();
-
-    }
-
-
-
-    public async static Task<CreateResponse> UpdateName(int conversation, string name, string token)
-    {
-
-        // Cliente
-        Client client = Service.GetClient($"conversations/update/name");
-
-        // Headers.
-        client.AddHeader("token", token);
-
-        client.AddParameter("id", conversation);
-
+        // Parámetros.
+        client.AddParameter("id", id);
         client.AddParameter("newName", name);
 
-        return await client.Put<CreateResponse>();
+        return await client.Patch<CreateResponse>();
 
     }
 
