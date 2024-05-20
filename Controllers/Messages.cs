@@ -1,4 +1,5 @@
 ﻿using LIN.Types.Emma.Models;
+using System.Runtime.InteropServices;
 
 namespace LIN.Access.Communication.Controllers;
 
@@ -24,6 +25,25 @@ public static class Messages
         client.AddHeader("lastID", lastId.ToString());
 
         return await client.Get<ReadAllResponse<MessageModel>>();
+
+    }
+
+
+
+
+
+    public async static Task<CreateResponse> Send(int id, string guid, string message, string token)
+    {
+
+        // Cliente
+        Client client = Service.GetClient($"conversations/{id}/messages");
+
+        // Headers.
+        client.AddHeader("token", token);
+
+        client.AddParameter("guid", guid);
+
+        return await client.Post<CreateResponse>(message);
 
     }
 

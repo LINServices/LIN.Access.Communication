@@ -119,13 +119,33 @@ public sealed class ChatHub
 
 
 
+
     /// <summary>
     /// Enviar mensaje
     /// </summary>
     /// <param name="group">Id de la conversación</param>
     /// <param name="message">Mensaje</param>
-    public async Task<bool> SendMessage(int group, string message, string guid)
+    public async Task<bool> SendMessage(int group, string message, string guid, string token)
     {
+
+        // Comprueba la conexión
+        if (HubConnection?.State != HubConnectionState.Connected)
+            return await SendMessageApi(group, guid, message, token);
+
+        _ = SendMessageSignal(group, message, guid);
+        return false;
+
+    }
+
+
+    /// <summary>
+    /// Enviar mensaje
+    /// </summary>
+    /// <param name="group">Id de la conversación</param>
+    /// <param name="message">Mensaje</param>
+    private async Task<bool> SendMessageSignal(int group, string message, string guid)
+    {
+
         // Comprueba la conexión
         if (HubConnection?.State != HubConnectionState.Connected)
             return false;
@@ -142,5 +162,14 @@ public sealed class ChatHub
         return false;
     }
 
+
+
+
+    private async Task<bool> SendMessageApi(int group, string guid, string message, string token)
+    {
+        var response = await LIN.Access.Communication.Controllers.Messages.Send(group, guid, message, token);
+        return response.Response == Responses.Success;
+
+    }
 
 }
