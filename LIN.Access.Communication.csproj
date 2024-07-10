@@ -7,7 +7,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Global.Http" Version="2.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.7" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Tipos\LIN.Types.Cloud.Identity\LIN.Types.Cloud.Identity.csproj" />
