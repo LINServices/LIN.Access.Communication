@@ -91,7 +91,6 @@ public sealed class ChatHub
             foreach (var a in OnReceiveMessage)
                 a.Invoke(e);
         });
-
     }
 
 
