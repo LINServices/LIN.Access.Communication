@@ -1,9 +1,7 @@
 ﻿namespace LIN.Access.Communication.Controllers;
 
-
 public static class Profiles
 {
-
 
     /// <summary>
     /// Iniciar sesión.
@@ -28,7 +26,6 @@ public static class Profiles
     }
 
 
-
     /// <summary>
     /// Login con token.
     /// </summary>
@@ -45,7 +42,5 @@ public static class Profiles
         return await client.Get<ReadOneResponse<Types.Cloud.Identity.Abstracts.AuthModel<ProfileModel>>>();
 
     }
-
-
 
 }

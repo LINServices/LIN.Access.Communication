@@ -1,15 +1,16 @@
 ﻿namespace LIN.Access.Communication.Hubs;
 
-
-public sealed class ChatHub
+/// <summary>
+/// Nueva conexión en tiempo real para chat
+/// </summary>
+/// <param name="profile">Profile</param>
+public sealed class ChatHub(ProfileModel profile)
 {
-
 
     /// <summary>
     /// Profile conectado
     /// </summary>
-    private ProfileModel Profile { get; set; }
-
+    private ProfileModel Profile { get; set; } = profile;
 
 
     /// <summary>
@@ -18,32 +19,16 @@ public sealed class ChatHub
     private HubConnection? HubConnection { get; set; }
 
 
-
     /// <summary>
     /// Recibe un mensaje
     /// </summary>
     public List<Action<MessageModel>> OnReceiveMessage = new();
 
 
-
     /// <summary>
     /// Obtiene el Id asociado al Hub
     /// </summary>
     public string ID => HubConnection?.ConnectionId ?? string.Empty;
-
-
-
-
-    /// <summary>
-    /// Nueva conexión en tiempo real para chat
-    /// </summary>
-    /// <param name="profile">Profile</param>
-    public ChatHub(ProfileModel profile)
-    {
-        this.Profile = profile;
-    }
-
-
 
 
     /// <summary>
@@ -66,11 +51,10 @@ public sealed class ChatHub
             await Configurate();
 
         }
-        catch
-        { }
-
+        catch (Exception)
+        {
+        }
     }
-
 
 
     /// <summary>
@@ -94,7 +78,6 @@ public sealed class ChatHub
     }
 
 
-
     /// <summary>
     /// Une a una conversación
     /// </summary>
@@ -115,8 +98,6 @@ public sealed class ChatHub
         {
         }
     }
-
-
 
 
     /// <summary>
@@ -162,13 +143,17 @@ public sealed class ChatHub
     }
 
 
-
-
+    /// <summary>
+    /// Enviar mensaje atreves del API.
+    /// </summary>
+    /// <param name="group">Id del grupo.</param>
+    /// <param name="guid">Id del mensaje.</param>
+    /// <param name="message">Contenido del mensaje.</param>
+    /// <param name="token">Token de acceso.</param>
     private async Task<bool> SendMessageApi(int group, string guid, string message, string token)
     {
         var response = await LIN.Access.Communication.Controllers.Messages.Send(group, guid, message, token);
         return response.Response == Responses.Success;
-
     }
 
 }

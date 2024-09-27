@@ -1,9 +1,7 @@
 ﻿namespace LIN.Access.Communication.Controllers;
 
-
 public static class Members
 {
-
 
     /// <summary>
     /// Obtiene los integrantes de una conversación.
@@ -22,7 +20,6 @@ public static class Members
         return await client.Get<ReadAllResponse<MemberChatModel>>();
 
     }
-
 
 
     /// <summary>
@@ -44,7 +41,6 @@ public static class Members
         return await client.Delete<ResponseBase>();
 
     }
-
 
 
     /// <summary>
@@ -69,7 +65,6 @@ public static class Members
     }
 
 
-
     /// <summary>
     /// Obtiene la información asociados a los miembros de una conversación.
     /// </summary>
@@ -88,7 +83,6 @@ public static class Members
         return await client.Get<ReadAllResponse<SessionModel<MemberChatModel>>>();
 
     }
-
 
 
     /// <summary>
@@ -113,15 +107,11 @@ public static class Members
     }
 
 
-
-
-
-
-
-
-
-
-
+    /// <summary>
+    /// Encontrar una conversación.
+    /// </summary>
+    /// <param name="friend">Id del amigo.</param>
+    /// <param name="token">Token de acceso.</param>
     public async static Task<CreateResponse> Find(int friend, string token)
     {
 
@@ -137,8 +127,12 @@ public static class Members
     }
 
 
-
-
+    /// <summary>
+    /// Agregar un integrante a una conversación.
+    /// </summary>
+    /// <param name="conversation">Id de la conversación.</param>
+    /// <param name="profile">Id del perfil.</param>
+    /// <param name="token">Token de acceso.</param>
     public async static Task<CreateResponse> Insert(int conversation, int profile, string token)
     {
 
@@ -153,8 +147,5 @@ public static class Members
         return await client.Get<CreateResponse>();
 
     }
-
-
-
 
 }

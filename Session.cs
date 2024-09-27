@@ -1,15 +1,12 @@
 ﻿namespace LIN.Access.Communication;
 
-
 public sealed class Session
 {
-
 
     /// <summary>
     /// Token de acceso.
     /// </summary>
     public string Token { get; set; } = string.Empty;
-
 
 
     /// <summary>
@@ -18,12 +15,10 @@ public sealed class Session
     public string AccountToken { get; set; }
 
 
-
     /// <summary>
     /// Información del perfil.
     /// </summary>
     public ProfileModel Profile { get; private set; } = new();
-
 
 
     /// <summary>
@@ -32,20 +27,16 @@ public sealed class Session
     public AccountModel Account { get; private set; } = new();
 
 
-
     /// <summary>
     /// Si la sesión es activa
     /// </summary>
     public static bool IsAccountOpen { get => Instance.Account.Id > 0; }
 
 
-
     /// <summary>
     /// Si la sesión es activa
     /// </summary>
     public static bool IsOpen { get => Instance.Profile.ID > 0; }
-
-
 
 
     /// <summary>
@@ -60,10 +51,8 @@ public sealed class Session
         // Validación de user
         var response = await Controllers.Profiles.Login(user, password, "Q333Q");
 
-
         if (response.Response != Responses.Success)
             return (null, response.Response);
-
 
         // Datos de la instancia
         Instance.Profile = response.Model.Profile;
@@ -75,7 +64,6 @@ public sealed class Session
         return (Instance, Responses.Success);
 
     }
-
 
 
     /// <summary>
@@ -90,10 +78,8 @@ public sealed class Session
         // Validación de user
         var response = await Controllers.Profiles.Login(token);
 
-
         if (response.Response != Responses.Success)
             return (null, response.Response);
-
 
         // Datos de la instancia
         Instance.Profile = response.Model.Profile;
@@ -107,8 +93,6 @@ public sealed class Session
     }
 
 
-
-
     /// <summary>
     /// Cierra la sesión
     /// </summary>
@@ -119,10 +103,6 @@ public sealed class Session
         Instance.AccountToken = "";
         Instance.Token = "";
     }
-
-
-
-
 
 
     //==================== Singleton ====================//

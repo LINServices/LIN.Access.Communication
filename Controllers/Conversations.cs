@@ -1,9 +1,7 @@
 ﻿namespace LIN.Access.Communication.Controllers;
 
-
 public static class Conversations
 {
-
 
     /// <summary>
     /// Crear nueva conversación.
@@ -24,7 +22,6 @@ public static class Conversations
     }
 
 
-
     /// <summary>
     /// Obtener las conversaciones de un perfil.
     /// </summary>
@@ -43,7 +40,6 @@ public static class Conversations
         return await client.Get<ReadAllResponse<MemberChatModel>>();
 
     }
-
 
 
     /// <summary>
@@ -70,7 +66,6 @@ public static class Conversations
     }
 
 
-
     /// <summary>
     /// Actualizar el nombre.
     /// </summary>
@@ -93,7 +88,5 @@ public static class Conversations
         return await client.Patch<CreateResponse>();
 
     }
-
-
 
 }

@@ -1,12 +1,9 @@
 ﻿using LIN.Types.Emma.Models;
-using System.Runtime.InteropServices;
 
 namespace LIN.Access.Communication.Controllers;
 
-
 public static class Messages
 {
-
 
     /// <summary>
     /// Obtiene los mensajes asociados a una conversación.
@@ -14,7 +11,7 @@ public static class Messages
     /// <param name="idConversation">Id de la conversación.</param>
     /// <param name="lastId">Id del ultimo mensaje a buscar.</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ReadAllResponse<MessageModel>> ReadAll(int idConversation, int lastId = 0, string token = "")
+    public static async Task<ReadAllResponse<MessageModel>> ReadAll(int idConversation, int lastId = 0, string token = "")
     {
 
         // Cliente
@@ -29,10 +26,14 @@ public static class Messages
     }
 
 
-
-
-
-    public async static Task<CreateResponse> Send(int id, string guid, string message, string token)
+    /// <summary>
+    /// Enviar mensaje.
+    /// </summary>
+    /// <param name="id">Id de la conversación.</param>
+    /// <param name="guid">Guid del mensaje.</param>
+    /// <param name="message">Contenido del mensaje.</param>
+    /// <param name="token">Token de acceso.</param>
+    public static async Task<CreateResponse> Send(int id, string guid, string message, string token)
     {
 
         // Cliente
@@ -48,13 +49,12 @@ public static class Messages
     }
 
 
-
     /// <summary>
     /// Preguntar a Emma.
     /// </summary>
     /// <param name="token">Preguntar a Emma.</param>
     /// <param name="token">Token de acceso.</param>
-    public async static Task<ReadOneResponse<ResponseIAModel>> ToEmma(string modelo, string token)
+    public static async Task<ReadOneResponse<ResponseIAModel>> ToEmma(string modelo, string token)
     {
 
         // Cliente
@@ -66,7 +66,5 @@ public static class Messages
         return await client.Post<ReadOneResponse<ResponseIAModel>>(modelo);
 
     }
-
-
 
 }
