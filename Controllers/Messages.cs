@@ -1,6 +1,4 @@
-﻿using LIN.Types.Emma.Models;
-
-namespace LIN.Access.Communication.Controllers;
+﻿namespace LIN.Access.Communication.Controllers;
 
 public static class Messages
 {
