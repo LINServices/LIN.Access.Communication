@@ -54,7 +54,7 @@ public static class Messages
     /// </summary>
     /// <param name="token">Preguntar a Emma.</param>
     /// <param name="token">Token de acceso.</param>
-    public static async Task<ReadOneResponse<ResponseIAModel>> ToEmma(string modelo, string token)
+    public static async Task<ReadOneResponse<LIN.Types.Cloud.OpenAssistant.Api.AssistantResponse>> ToEmma(string modelo, string token)
     {
 
         // Cliente
@@ -63,7 +63,7 @@ public static class Messages
         // Headers.
         client.AddHeader("tokenAuth", token);
 
-        return await client.Post<ReadOneResponse<ResponseIAModel>>(modelo);
+        return await client.Post<ReadOneResponse<Types.Cloud.OpenAssistant.Api.AssistantResponse>>(modelo);
 
     }
 
