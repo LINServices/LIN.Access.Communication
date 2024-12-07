@@ -46,23 +46,4 @@ public static class Messages
 
     }
 
-
-    /// <summary>
-    /// Preguntar a Emma.
-    /// </summary>
-    /// <param name="token">Preguntar a Emma.</param>
-    /// <param name="token">Token de acceso.</param>
-    public static async Task<ReadOneResponse<LIN.Types.Cloud.OpenAssistant.Api.AssistantResponse>> ToEmma(string modelo, string token)
-    {
-
-        // Cliente
-        Client client = Service.GetClient($"emma");
-
-        // Headers.
-        client.AddHeader("tokenAuth", token);
-
-        return await client.Post<ReadOneResponse<Types.Cloud.OpenAssistant.Api.AssistantResponse>>(modelo);
-
-    }
-
 }
