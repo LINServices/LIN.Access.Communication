@@ -123,7 +123,7 @@ public sealed class ChatHub(ProfileModel profile)
     /// </summary>
     /// <param name="group">Id de la conversación</param>
     /// <param name="message">Mensaje</param>
-    private async Task<bool> SendMessageSignal(int group, string message, string guid)
+    private async Task<bool> SendMessageSignal(int group, string message, string guid, DateTime? date = null)
     {
 
         // Comprueba la conexión
@@ -133,7 +133,7 @@ public sealed class ChatHub(ProfileModel profile)
         // Ejecución
         try
         {
-            await HubConnection!.InvokeAsync("SendMessage", Profile.ID, group, message, guid);
+            await HubConnection!.InvokeAsync("SendMessage", Profile.Id, group, message, guid, date);
             return true;
         }
         catch
@@ -150,9 +150,9 @@ public sealed class ChatHub(ProfileModel profile)
     /// <param name="guid">Id del mensaje.</param>
     /// <param name="message">Contenido del mensaje.</param>
     /// <param name="token">Token de acceso.</param>
-    private async Task<bool> SendMessageApi(int group, string guid, string message, string token)
+    private async Task<bool> SendMessageApi(int group, string guid, string message, string token, DateTime? date = null)
     {
-        var response = await LIN.Access.Communication.Controllers.Messages.Send(group, guid, message, token);
+        var response = await LIN.Access.Communication.Controllers.Messages.Send(group, guid, message, token, date);
         return response.Response == Responses.Success;
     }
 

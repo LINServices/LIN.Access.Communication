@@ -1,6 +1,6 @@
 ﻿namespace LIN.Access.Communication.Controllers;
 
-internal class Emma
+public class Emma
 {
 
     /// <summary>

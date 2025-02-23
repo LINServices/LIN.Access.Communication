@@ -31,7 +31,7 @@ public static class Messages
     /// <param name="guid">Guid del mensaje.</param>
     /// <param name="message">Contenido del mensaje.</param>
     /// <param name="token">Token de acceso.</param>
-    public static async Task<CreateResponse> Send(int id, string guid, string message, string token)
+    public static async Task<CreateResponse> Send(int id, string guid, string message, string token, DateTime? date = null)
     {
 
         // Cliente
@@ -41,6 +41,8 @@ public static class Messages
         client.AddHeader("token", token);
 
         client.AddParameter("guid", guid);
+        if (date.HasValue)
+            client.AddParameter("sendAt", date.Value);
 
         return await client.Post<CreateResponse>(message);
 

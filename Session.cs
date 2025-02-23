@@ -36,7 +36,7 @@ public sealed class Session
     /// <summary>
     /// Si la sesión es activa
     /// </summary>
-    public static bool IsOpen { get => Instance.Profile.ID > 0; }
+    public static bool IsOpen { get => Instance.Profile.Id > 0; }
 
 
     /// <summary>
@@ -49,7 +49,7 @@ public sealed class Session
         CloseSession();
 
         // Validación de user
-        var response = await Controllers.Profiles.Login(user, password, "Q333Q");
+        var response = await Controllers.Profiles.Login(user, password);
 
         if (response.Response != Responses.Success)
             return (null, response.Response);
