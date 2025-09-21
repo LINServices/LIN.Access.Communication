@@ -1,22 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>netstandard2.1</TargetFramework>
+		<TargetFramework>net9.0</TargetFramework>
 		<LangVersion>13</LangVersion>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>$(AssemblyName)</Title>
 		<Authors>LIN Platform</Authors>
-		<Version>4.0</Version>
+		<Version>2025.9.21</Version>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Global.Http" Version="3.4.0" />
-		<PackageReference Include="LIN.Types.Cloud.Identity" Version="3.2.0-pre" />
+		<PackageReference Include="Global.Http" Version="3.9.0" />
+		<PackageReference Include="LIN.Types.Cloud.Identity" Version="2025.9.21" />
 		<PackageReference Include="LIN.Types.Cloud.OpenAssistant" Version="1.5.0" />
-		<PackageReference Include="LIN.Types.Communication" Version="1.5.0" />
-		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="9.0.2" />
+		<PackageReference Include="LIN.Types.Communication" Version="1.7.0" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="9.0.9" />
 	</ItemGroup>
 </Project>
-
-
-

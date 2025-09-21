@@ -1,4 +1,6 @@
-﻿namespace LIN.Access.Communication;
+﻿using LIN.Types.Cloud.Identity.Models.Identities;
+
+namespace LIN.Access.Communication;
 
 public sealed class Session
 {
@@ -106,8 +108,6 @@ public sealed class Session
 
 
     //==================== Singleton ====================//
-
-
     private readonly static Session _instance = new();
 
     private Session()

@@ -8,7 +8,6 @@ public static class Profiles
     /// </summary>
     /// <param name="cuenta">Cuenta.</param>
     /// <param name="password">Contraseña.</param>
-    /// <param name="app">App de contexto.</param>
     public async static Task<ReadOneResponse<AuthModel<ProfileModel>>> Login(string cuenta, string password)
     {
 
@@ -37,7 +36,19 @@ public static class Profiles
         client.AddParameter("token", token);
 
         return await client.Get<ReadOneResponse<Types.Cloud.Identity.Abstracts.AuthModel<ProfileModel>>>();
-
     }
 
+    /// <summary>
+    /// Obtener los dispositivos asociados.
+    /// </summary>
+    public async static Task<ReadAllResponse<DeviceOnAccountModel>> Devices(string token)
+    {
+        // Cliente
+        Client client = Service.GetClient($"profile/devices");
+
+        // Headers.
+        client.AddHeader("token", token);
+
+        return await client.Get<ReadAllResponse<DeviceOnAccountModel>>();
+    }
 }
