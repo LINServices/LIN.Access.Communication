@@ -93,7 +93,13 @@ internal sealed class RealtimeHubClient(DeviceOnAccountModel device) : IRealtime
     {
         if (!IsConnected) 
             return;
-        await InvokeIfConnectedAsync(HubMethods.JoinGroup, ct, group).ConfigureAwait(false);
+        try
+        {
+            await _conn!.InvokeAsync(HubMethods.JoinGroup, group).ConfigureAwait(false);
+        }
+        catch
+        {
+        }
     }
 
     /// <summary>
@@ -105,7 +111,13 @@ internal sealed class RealtimeHubClient(DeviceOnAccountModel device) : IRealtime
     {
         if (!IsConnected)
             return;
-        await InvokeIfConnectedAsync(HubMethods.CommandAction, ct, deviceId, command).ConfigureAwait(false);
+        try
+        {
+            await _conn!.InvokeAsync(HubMethods.CommandAction, deviceId, command).ConfigureAwait(false);
+        }
+        catch
+        {
+        }
     }
 
     // ===== Suscripción a eventos (limpia y simétrica) =====
@@ -118,18 +130,6 @@ internal sealed class RealtimeHubClient(DeviceOnAccountModel device) : IRealtime
 
     public IDisposable OnCommand(Action<string> handler)
         => AddHandler(_commandHandlers, handler);
-
-    private async Task InvokeIfConnectedAsync(string method, CancellationToken ct, params object[] args)
-    {
-        if (!IsConnected) return;
-        try
-        {
-            await _conn!.InvokeAsync(method, args.Append(ct).ToArray()).ConfigureAwait(false);
-        }
-        catch
-        {
-        }
-    }
 
     // Añade un handler y devuelve IDisposable para quitarlo sin exponer la lista
     private static IDisposable AddHandler<T>(HashSet<Action<T>> set, Action<T> handler)
