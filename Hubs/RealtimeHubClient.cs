@@ -18,7 +18,7 @@ internal sealed class RealtimeHubClient(DeviceOnAccountModel device) : IRealtime
 
     // ===== Handlers internos (listas privadas y seguras) =====
     private readonly HashSet<Action<MessageModel>> _messageHandlers = [];
-    private readonly HashSet<Action<string>> _callHandlers = [];
+    private readonly HashSet<Action<Types.Communication.DTO.ReceiveCallDTO>> _callHandlers = [];
     private readonly HashSet<Action<string>> _commandHandlers = [];
 
     private ProfileModel? _profile;
@@ -80,7 +80,7 @@ internal sealed class RealtimeHubClient(DeviceOnAccountModel device) : IRealtime
         // DRY: registrar handlers con helper seguro
         _conn!.On<MessageModel>(HubMethods.OnSendMessage, msg => SafeDispatch(_messageHandlers, msg));
         _conn!.On<string>(HubMethods.OnCommand, cmd => SafeDispatch(_commandHandlers, cmd));
-        _conn!.On<string>(HubMethods.OnUserInCall, payload => SafeDispatch(_callHandlers, payload));
+        _conn!.On<Types.Communication.DTO.ReceiveCallDTO>(HubMethods.OnUserInCall, payload => SafeDispatch(_callHandlers, payload));
 
         _handlersConfigured = true;
     }
@@ -125,7 +125,7 @@ internal sealed class RealtimeHubClient(DeviceOnAccountModel device) : IRealtime
     public IDisposable OnMessage(Action<MessageModel> handler)
         => AddHandler(_messageHandlers, handler);
 
-    public IDisposable OnCall(Action<string> handler)
+    public IDisposable OnCall(Action<Types.Communication.DTO.ReceiveCallDTO> handler)
         => AddHandler(_callHandlers, handler);
 
     public IDisposable OnCommand(Action<string> handler)

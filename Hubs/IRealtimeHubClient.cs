@@ -8,6 +8,6 @@ public interface IRealtimeHubClient : IAsyncDisposable
     Task JoinGroupAsync(int group, CancellationToken ct = default);
     Task SendCommand(string deviceId, string command, CancellationToken ct = default);
     IDisposable OnMessage(Action<MessageModel> handler);
-    IDisposable OnCall(Action<string> handler);
+    IDisposable OnCall(Action<Types.Communication.DTO.ReceiveCallDTO> handler);
     IDisposable OnCommand(Action<string> handler);
 }
